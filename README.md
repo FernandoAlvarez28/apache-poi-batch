@@ -1,7 +1,7 @@
 # apache-poi-batch
-## Experiment to explore ways to export large amounts of data with Apache POI.
+## An experiment to explore ways to export large amounts of data with Apache POI.
 
-Where I work we had some memory problems with exporting spreadsheets with [Apache POI](https://poi.apache.org). Talking about solutions, we thought on creating a Proof of Concept with a more optimized solution, like closing and reopening the spreadsheet at every X rows somehow.
+At work we had some memory problems with exporting spreadsheets with [Apache POI](https://poi.apache.org). Talking about solutions, we thought on creating a Proof of Concept with a more optimized solution, like closing and reopening the spreadsheet at every X rows somehow.
 
 With this goal in mind, I created this project to generate a large amount of random fake data and export it with the implementation we have been using at work and with another more optimized implementation, after some research. Fortunately, this was easier than I thought.
 
@@ -45,7 +45,7 @@ But the POI implementation wasn't everything: setting null to each list position
 1. Clone this repository and open it on your favorite Java IDE (like [IntelliJ](https://www.jetbrains.com/idea/) or [Eclipse](https://www.eclipse.org/downloads/));
 2. Run Maven to import all dependencies;
 3. Configure the [profile](https://www.baeldung.com/spring-profiles) to `not-optimized` or `optimized`. You can manually set the `spring.profiles.active` property inside [application.properties](./src/main/resources/application.properties) or when configuring your IDE to run the application, like [here](https://stackoverflow.com/questions/39738901/how-do-i-activate-a-spring-boot-profile-when-running-from-intellij);
-4. (Optional) You can also set the amount of data to generate, as described in [Data generation](#data-generation).
+4. (Optional) You can also set the amount of data to generate, as described in [Data generation](#data-generation);
 5. Configure the output destination through [Command Line argument](https://stackoverflow.com/questions/2066307/how-do-you-input-command-line-arguments-in-intellij-idea) `destination`. It must be a folder, and a spreadsheet file will be written on it with the pattern `Exported spreadsheet yyyy-MM-ddTHH:mm:ss.ssssss.xlsx`;
 6. Run the [main class](./src/main/java/alvarez/fernando/poi/batch/ApachePoiBatchApplication.java);
 7. (Optional) Monitor the performance and memory usage through a Profiler, like [VisualVM](https://visualvm.github.io) or [JProfiler](https://www.ej-technologies.com/products/jprofiler/overview.html).
