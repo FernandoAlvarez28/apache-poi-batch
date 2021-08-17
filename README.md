@@ -17,6 +17,7 @@ In this project, I implemented a "[not optimized](#not-optimized)" spreadsheet e
 The "not optimized" logic uses the [XSSFWorkbook](http://poi.apache.org/apidocs/dev/org/apache/poi/xssf/usermodel/XSSFWorkbook.html) implementation for [Workbook](http://poi.apache.org/apidocs/dev/org/apache/poi/ss/usermodel/Workbook.html), which keep everything on memory until it's written somewhere. So it's not hard to know that it can use a lot of memory:
 
 ![Not optimized run without any max heap size](./doc/not-optimized-run-no-memory-limit.png)
+
 _Not optimized run without any max heap size. I remember that when I implemented it, it managed to successfully exported files without memory limit._
 
 [HSSFWorkbook](http://poi.apache.org/apidocs/dev/org/apache/poi/hssf/usermodel/HSSFWorkbook.html) Workbook's implementation has a limit of 65536 rows, so I couldn't use it for this test.
@@ -27,6 +28,7 @@ To run this implementation on this project, execute the [main class](./src/main/
 The "optimized" logic uses [SXSSFWorkbook](http://poi.apache.org/apidocs/dev/org/apache/poi/xssf/streaming/SXSSFWorkbook.html) implementation that keeps only a certain number of rows in memory, reducing drastically the memory usage, as in the image below:
 
 ![Optimized run without any max heap size](./doc/optimized-run-no-memory-limit.png)
+
 _Optimized run without any max heap size._
 
 Still, I could use [autoSizeColumn()](http://poi.apache.org/apidocs/dev/org/apache/poi/ss/usermodel/Sheet.html#autoSizeColumn-int-), that I believed would not be possible with this Workbook implementation. So far, this implementation has no drawbacks for my needs.
@@ -37,6 +39,7 @@ To run this implementation on this project, execute the [main class](./src/main/
 With the optimized implementation I could export 300000 rows while limiting the JVM max heap size to 150 MB (`-Xmx150m`):
 
 ![Optimized run with 150 MB max heap size](./doc/optimized-run-150m.png)
+
 _Optimized run with 150 MB max heap size. It couldn't successfully export files with values lower than this._
 
 But the POI implementation wasn't everything: setting null to each list position after inserted on the sheet also helped a lot (but not enough to export without `SXSSFWorkbook`).
